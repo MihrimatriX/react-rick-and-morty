@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  react-rickmorty:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    ports:
+      - "3000:80"
+    container_name: react-rickmorty-app
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production 
