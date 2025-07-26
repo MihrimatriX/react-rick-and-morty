@@ -1,55 +1,73 @@
-import header_logo from "../assets/header_logo.png";
+import { Link } from "react-router-dom";
+import { useTheme } from "../ThemeContext";
+import { FaSun, FaMoon, FaAdjust, FaBars } from "react-icons/fa";
+import headerLogo from "../assets/header_logo.png";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import * as Tooltip from "@radix-ui/react-tooltip";
-import { useState } from "react";
 
-interface HeaderProps {
-  renderUnfilteredList: () => void;
-}
+const themeOptions = [
+  { value: "light", label: "Açık", icon: <FaSun /> },
+  { value: "dark", label: "Koyu", icon: <FaMoon /> },
+  { value: "auto", label: "Otomatik", icon: <FaAdjust /> },
+];
 
-const Header = ({ renderUnfilteredList }: HeaderProps) => {
-  const [theme, setTheme] = useState("light");
+const Header = () => {
+  const { theme, setTheme } = useTheme();
 
   return (
-    <header className="w-full flex justify-between items-center py-6 px-4">
-      <Tooltip.Root>
-        <Tooltip.Trigger asChild>
+    <header className="sticky top-0 z-50 w-full bg-bg-light dark:bg-bg-dark backdrop-blur-md shadow-lg border-b border-accent-light dark:border-accent-dark transition-colors duration-300">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-8 py-5 min-h-[88px] gap-8">
+        <Link to="/" className="flex items-center gap-4 group" tabIndex={0} aria-label="Ana sayfa">
           <img
-            src={header_logo}
-            className="w-2/5 max-w-xs mt-9 cursor-pointer hover:scale-105 transition-transform"
-            alt="Rick and Morty logo"
-            onClick={renderUnfilteredList}
-            tabIndex={0}
-            aria-label="Go to unfiltered list"
+            src={headerLogo}
+            alt="Rick and Morty Logo"
+            className="h-16 w-auto drop-shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:animate-wiggle"
+            draggable={false}
           />
-        </Tooltip.Trigger>
-        <Tooltip.Portal>
-          <Tooltip.Content side="bottom" className="bg-gray-800 text-white px-3 py-2 rounded shadow text-sm">
-            Listeyi sıfırlamak için tıkla
-            <Tooltip.Arrow className="fill-gray-800" />
-          </Tooltip.Content>
-        </Tooltip.Portal>
-      </Tooltip.Root>
-      <DropdownMenu.Root>
-        <DropdownMenu.Trigger asChild>
-          <button className="px-4 py-2 rounded bg-cyan-600 text-white font-semibold shadow hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition">
-            Menü
-          </button>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Portal>
-          <DropdownMenu.Content className="bg-white dark:bg-gray-900 rounded shadow-lg p-2 min-w-[160px]">
-            <DropdownMenu.Label className="text-xs text-gray-500 px-2">Tema</DropdownMenu.Label>
-            <DropdownMenu.RadioGroup value={theme} onValueChange={setTheme}>
-              <DropdownMenu.RadioItem value="light" className="px-2 py-1 cursor-pointer rounded hover:bg-cyan-100 dark:hover:bg-cyan-900">Açık</DropdownMenu.RadioItem>
-              <DropdownMenu.RadioItem value="dark" className="px-2 py-1 cursor-pointer rounded hover:bg-cyan-100 dark:hover:bg-cyan-900">Koyu</DropdownMenu.RadioItem>
-            </DropdownMenu.RadioGroup>
-            <DropdownMenu.Separator className="my-2 h-px bg-gray-200 dark:bg-gray-700" />
-            <DropdownMenu.Item className="px-2 py-1 cursor-pointer rounded hover:bg-cyan-100 dark:hover:bg-cyan-900">
-              <a href="https://rickandmortyapi.com/" target="_blank" rel="noopener noreferrer">API Kaynağı</a>
-            </DropdownMenu.Item>
-          </DropdownMenu.Content>
-        </DropdownMenu.Portal>
-      </DropdownMenu.Root>
+        </Link>
+        <div className="flex items-center gap-6">
+          {/* Tema Seçici */}
+          <DropdownMenu.Root>
+            <DropdownMenu.Trigger asChild>
+              <button
+                className="flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-accent-light to-evil-dark dark:from-accent-dark dark:to-evil-dark text-white font-semibold text-lg shadow hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-rick transition-all"
+                aria-label="Tema seç"
+              >
+                <FaAdjust className="text-2xl" />
+                <span className="hidden md:inline">Tema</span>
+              </button>
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Content className="bg-card-light dark:bg-card-dark rounded-lg shadow-lg p-2 mt-2 min-w-[180px] animate-slideDownAndFade transition-colors duration-300">
+              {themeOptions.map(opt => (
+                <DropdownMenu.Item
+                  key={opt.value}
+                  onSelect={() => setTheme(opt.value as any)}
+                  className={`flex items-center gap-2 px-4 py-3 rounded cursor-pointer text-slate-800 dark:text-white hover:bg-rick/20 dark:hover:bg-morty/20 transition text-lg ${theme === opt.value ? "font-bold bg-rick/30 dark:bg-morty/30" : ""}`}
+                  aria-label={opt.label}
+                >
+                  {opt.icon} {opt.label}
+                </DropdownMenu.Item>
+              ))}
+            </DropdownMenu.Content>
+          </DropdownMenu.Root>
+          {/* Menü (placeholder) */}
+          <DropdownMenu.Root>
+            <DropdownMenu.Trigger asChild>
+              <button
+                className="flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-evil-dark to-accent-light dark:from-evil-dark dark:to-accent-dark text-white font-semibold text-lg shadow hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-morty transition-all"
+                aria-label="Menü"
+              >
+                <FaBars className="text-2xl" />
+                <span className="hidden md:inline">Menü</span>
+              </button>
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Content className="bg-card-light dark:bg-card-dark rounded-lg shadow-lg p-2 mt-2 min-w-[180px] animate-slideDownAndFade transition-colors duration-300">
+              <DropdownMenu.Item asChild>
+                <a href="https://rickandmortyapi.com/" target="_blank" rel="noopener noreferrer" className="block px-4 py-3 rounded hover:bg-rick/20 dark:hover:bg-morty/20 transition text-slate-800 dark:text-white text-lg">API Kaynağı</a>
+              </DropdownMenu.Item>
+            </DropdownMenu.Content>
+          </DropdownMenu.Root>
+        </div>
+      </div>
     </header>
   );
 };

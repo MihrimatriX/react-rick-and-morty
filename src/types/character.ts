@@ -6,5 +6,9 @@ export interface Character {
   species: string;
   gender: string;
   origin: string;
+  originUrl: string;
+  location: string;
+  locationUrl: string;
   episodes: number;
+  episodeUrls: string[];
 } 
