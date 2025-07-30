@@ -48,6 +48,3 @@ The app runs by default at [http://localhost:5173](http://localhost:5173).
 Pull requests and suggestions are welcome!
 
 ---
-
-## License
-MIT 
