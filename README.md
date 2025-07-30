@@ -2,6 +2,8 @@
 
 A modern, animated, and themed Rick and Morty SPA. Browse and filter all characters and episodes, discover detailed information, and switch between light, dark, or auto themes!
 
+![Rick & Morty App Screenshot](./image.png)
+
 ---
 
 ## Features

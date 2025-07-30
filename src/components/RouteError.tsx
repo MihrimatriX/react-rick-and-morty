@@ -13,23 +13,22 @@ const RouteError = () => (
 			404
 		</h1>
 		<h2 className="text-2xl font-bold mb-2 text-gray-800 dark:text-gray-100">
-			Kaybolmuş Bir Evrendesin!
+			You're Lost in Another Universe!
 		</h2>
 		<p className="mb-6 text-gray-600 dark:text-gray-300 max-w-md">
-			Aradığın sayfa bu evrende yok. Portalı kullanarak ana sayfaya
-			dönebilirsin!
+			The page you're looking for doesn't exist in this universe. Use the portal to return to the home page!
 		</p>
 		<Link
 			to="/"
 			className="px-6 py-3 rounded-lg bg-cyan-600 text-white font-semibold shadow hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition text-lg animate-fadeIn"
 			tabIndex={0}
-			aria-label="Ana sayfaya dön"
+			aria-label="Return to home page"
 			onKeyDown={(e) => {
 				if (e.key === "Enter" || e.key === " ")
 					(e.target as HTMLElement).click();
 			}}
 		>
-			Ana Sayfaya Dön
+			Return to Home Page
 		</Link>
 	</div>
 );

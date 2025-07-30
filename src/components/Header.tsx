@@ -5,9 +5,9 @@ import headerLogo from "../assets/header_logo.png";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 
 const themeOptions = [
-	{ value: "light", label: "Açık", icon: <FaSun /> },
-	{ value: "dark", label: "Koyu", icon: <FaMoon /> },
-	{ value: "auto", label: "Otomatik", icon: <FaAdjust /> },
+	{ value: "light", label: "Light", icon: <FaSun /> },
+	{ value: "dark", label: "Dark", icon: <FaMoon /> },
+	{ value: "auto", label: "Auto", icon: <FaAdjust /> },
 ];
 
 const Header = () => {
@@ -20,7 +20,7 @@ const Header = () => {
 					to="/"
 					className="flex items-center gap-4 group"
 					tabIndex={0}
-					aria-label="Ana sayfa"
+					aria-label="Home page"
 				>
 					<img
 						src={headerLogo}
@@ -30,15 +30,15 @@ const Header = () => {
 					/>
 				</Link>
 				<div className="flex items-center gap-6">
-					{/* Tema Seçici */}
+					{/* Theme Selector */}
 					<DropdownMenu.Root>
 						<DropdownMenu.Trigger asChild>
 							<button
 								className="flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-accent-light to-evil-dark dark:from-accent-dark dark:to-evil-dark text-white font-semibold text-lg shadow hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-rick transition-all"
-								aria-label="Tema seç"
+								aria-label="Select theme"
 							>
 								<FaAdjust className="text-2xl" />
-								<span className="hidden md:inline">Tema</span>
+								<span className="hidden md:inline">Theme</span>
 							</button>
 						</DropdownMenu.Trigger>
 						<DropdownMenu.Content className="bg-card-light dark:bg-card-dark rounded-lg shadow-lg p-2 mt-2 min-w-[180px] animate-slideDownAndFade transition-colors duration-300">
@@ -54,15 +54,15 @@ const Header = () => {
 							))}
 						</DropdownMenu.Content>
 					</DropdownMenu.Root>
-					{/* Menü (placeholder) */}
+					{/* Menu (placeholder) */}
 					<DropdownMenu.Root>
 						<DropdownMenu.Trigger asChild>
 							<button
 								className="flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-evil-dark to-accent-light dark:from-evil-dark dark:to-accent-dark text-white font-semibold text-lg shadow hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-morty transition-all"
-								aria-label="Menü"
+								aria-label="Menu"
 							>
 								<FaBars className="text-2xl" />
-								<span className="hidden md:inline">Menü</span>
+								<span className="hidden md:inline">Menu</span>
 							</button>
 						</DropdownMenu.Trigger>
 						<DropdownMenu.Content className="bg-card-light dark:bg-card-dark rounded-lg shadow-lg p-2 mt-2 min-w-[180px] animate-slideDownAndFade transition-colors duration-300">
@@ -73,7 +73,7 @@ const Header = () => {
 									rel="noopener noreferrer"
 									className="block px-4 py-3 rounded hover:bg-rick/20 dark:hover:bg-morty/20 transition text-slate-800 dark:text-white text-lg"
 								>
-									API Kaynağı
+									API Source
 								</a>
 							</DropdownMenu.Item>
 						</DropdownMenu.Content>

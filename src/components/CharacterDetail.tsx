@@ -82,7 +82,7 @@ const CharacterDetail = ({ char }: CharacterDetailProps) => {
 				<Breadcrumb />
 				<BackToListLink />
 			</div>
-			{/* BLUR/GRADIENT ARKA PLAN */}
+			{/* BLUR/GRADIENT BACKGROUND */}
 			<div className="fixed inset-0 -z-10 flex justify-center items-center">
 				<img
 					src={char.img}
@@ -254,7 +254,7 @@ const CharacterDetail = ({ char }: CharacterDetailProps) => {
 								type="button"
 								className="px-6 py-3 rounded-xl bg-gradient-to-r from-rick to-morty dark:from-morty dark:to-rick text-white font-bold text-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300"
 							>
-								Daha fazla bilgi
+								More Info
 							</Button>
 						</Dialog.Trigger>
 					</div>
@@ -319,7 +319,7 @@ const CharacterDetail = ({ char }: CharacterDetailProps) => {
 					{firstEp && lastEp && (
 						<div className="flex flex-col gap-2 mt-4 p-4 bg-rick/10 dark:bg-morty/10 rounded-xl">
 							<span className="text-sm text-rick dark:text-morty font-semibold">
-								İlk göründüğü bölüm:{" "}
+								First appearance:{" "}
 								<Link
 									to={`/episodes/${firstEp.id}`}
 									className="underline hover:text-accent-light dark:hover:text-accent-dark transition"
@@ -328,7 +328,7 @@ const CharacterDetail = ({ char }: CharacterDetailProps) => {
 								</Link>
 							</span>
 							<span className="text-sm text-rick dark:text-morty font-semibold">
-								Son göründüğü bölüm:{" "}
+								Last appearance:{" "}
 								<Link
 									to={`/episodes/${lastEp.id}`}
 									className="underline hover:text-accent-light dark:hover:text-accent-dark transition"
@@ -341,7 +341,7 @@ const CharacterDetail = ({ char }: CharacterDetailProps) => {
 					{char.episodeUrls && episodes.length === 0 ? (
 						<div className="mt-6">
 							<div className="font-bold flex items-center gap-2 mb-3 text-rick dark:text-morty text-lg">
-								<FaTv /> Göründüğü Bölümler:
+								<FaTv /> Episodes:
 							</div>
 							<div className="flex items-center justify-center p-4">
 								<LoadingSpinner />
@@ -351,7 +351,7 @@ const CharacterDetail = ({ char }: CharacterDetailProps) => {
 						episodes.length > 0 && (
 							<div className="mt-6">
 								<div className="font-bold flex items-center gap-2 mb-3 text-rick dark:text-morty text-lg">
-									<FaTv /> Göründüğü Bölümler:
+									<FaTv /> Episodes:
 								</div>
 								<div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto scrollbar-thin scrollbar-thumb-rick dark:scrollbar-thumb-morty scrollbar-track-transparent rounded-md pr-1">
 									{episodes.map((ep) => (

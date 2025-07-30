@@ -32,19 +32,19 @@ const Filter = ({ handleFilter, onResetFilters }: FilterProps) => (
 		<form
 			className="flex flex-col lg:flex-row items-center gap-6 bg-card-light/80 dark:bg-card-dark/80 backdrop-blur-md rounded-3xl shadow-2xl border-2 border-accent-light/30 dark:border-accent-dark/30 px-8 py-6 max-w-4xl mx-auto transition-all duration-300 hover:shadow-3xl hover:border-accent-light/50 dark:hover:border-accent-dark/50"
 			onSubmit={(e) => e.preventDefault()}
-			aria-label="Karakter Filtreleme"
+			aria-label="Character Filtering"
 		>
 			<div className="flex flex-col gap-2 w-full lg:w-auto">
 				<label
 					htmlFor="searchBox"
 					className="flex items-center gap-2 text-accent-light dark:text-accent-dark font-bold text-lg transition-colors duration-200 hover:text-rick dark:hover:text-morty"
 				>
-					<FaSearch className="text-xl" /> İsim
+					<FaSearch className="text-xl" /> Name
 				</label>
 				<input
 					id="searchBox"
 					type="text"
-					placeholder="Karakter ara..."
+					placeholder="Search character..."
 					className="px-5 py-3 rounded-xl border-2 border-accent-light/50 dark:border-accent-dark/50 focus:border-rick dark:focus:border-morty focus:ring-4 focus:ring-rick/20 dark:focus:ring-morty/20 bg-white/90 dark:bg-bg-dark/90 text-slate-900 dark:text-white shadow-lg transition-all duration-300 w-full lg:w-64 hover:border-accent-light dark:hover:border-accent-dark hover:shadow-xl hover:scale-[1.02] focus:scale-[1.02]"
 					onChange={(e) =>
 						handleFilter({
@@ -52,7 +52,7 @@ const Filter = ({ handleFilter, onResetFilters }: FilterProps) => (
 							value: e.target.value,
 						})
 					}
-					aria-label="Karakter ismi ara"
+					aria-label="Search character name"
 				/>
 			</div>
 			<div className="flex flex-col gap-2 w-full lg:w-auto">
@@ -68,7 +68,7 @@ const Filter = ({ handleFilter, onResetFilters }: FilterProps) => (
 					onChange={(e) =>
 						handleFilter({ key: "status", value: e.target.value })
 					}
-					aria-label="Status seç"
+					aria-label="Select status"
 				>
 					{statusOptions.map((opt) => (
 						<option
@@ -94,7 +94,7 @@ const Filter = ({ handleFilter, onResetFilters }: FilterProps) => (
 					onChange={(e) =>
 						handleFilter({ key: "gender", value: e.target.value })
 					}
-					aria-label="Gender seç"
+					aria-label="Select gender"
 				>
 					{genderOptions.map((opt) => (
 						<option
@@ -111,10 +111,10 @@ const Filter = ({ handleFilter, onResetFilters }: FilterProps) => (
 				type="button"
 				className="mt-4 lg:mt-8 px-10 py-4 rounded-2xl bg-gradient-to-r from-rick to-morty dark:from-morty dark:to-rick text-white font-bold text-xl shadow-2xl hover:scale-110 hover:shadow-3xl focus:outline-none focus:ring-4 focus:ring-accent-light/50 dark:focus:ring-accent-dark/50 transition-all duration-300 relative overflow-hidden group"
 				onClick={onResetFilters}
-				aria-label="Filtreleri temizle"
+				aria-label="Clear filters"
 			>
 				<FaSyncAlt className="inline-block mr-3 text-2xl group-hover:animate-spin transition-transform duration-300" />
-				Temizle
+				Clear
 			</Button>
 		</form>
 	</section>

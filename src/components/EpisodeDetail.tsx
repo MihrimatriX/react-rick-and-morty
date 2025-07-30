@@ -21,13 +21,13 @@ interface EpisodeApi {
 
 const fetchEpisode = async (id: string): Promise<EpisodeApi> => {
 	const res = await fetch(`https://rickandmortyapi.com/api/episode/${id}`);
-	if (!res.ok) throw new Error("Bölüm bulunamadı");
+	if (!res.ok) throw new Error("Episode not found");
 	return res.json();
 };
 
 const fetchCharacter = async (url: string): Promise<CharacterRef> => {
 	const res = await fetch(url);
-	if (!res.ok) return { id: url.split("/").pop() || "", name: "Bilinmiyor" };
+	if (!res.ok) return { id: url.split("/").pop() || "", name: "Unknown" };
 	const data = await res.json();
 	return { id: String(data.id), name: data.name, img: data.image };
 };
@@ -43,7 +43,11 @@ const EpisodeDetail = () => {
 	const [error, setError] = useState(false);
 
 	useEffect(() => {
-		if (!id) return;
+		if (!id) {
+			setError(true);
+			setLoading(false);
+			return;
+		}
 		setLoading(true);
 		setError(false);
 		fetchEpisode(id)
@@ -77,11 +81,11 @@ const EpisodeDetail = () => {
 					{episode.episode} - {episode.name}
 				</h1>
 				<p className="text-slate-700 dark:text-slate-200 mb-2">
-					<span className="font-semibold">Yayın Tarihi:</span>{" "}
+					<span className="font-semibold">Air Date:</span>{" "}
 					{episode.air_date}
 				</p>
 				<p className="text-slate-700 dark:text-slate-200 mb-4">
-					<span className="font-semibold">Karakterler:</span>
+					<span className="font-semibold">Characters:</span>
 				</p>
 				<div className="flex flex-wrap gap-2 max-h-48 overflow-y-auto scrollbar-thin scrollbar-thumb-rick dark:scrollbar-thumb-morty scrollbar-track-transparent rounded-md pr-1">
 					{characters.map((char) => (
@@ -105,7 +109,7 @@ const EpisodeDetail = () => {
 							className="px-2 py-1 rounded bg-accent-light dark:bg-accent-dark text-white text-xs font-semibold shadow animate-fadeIn hover:bg-rick dark:hover:bg-morty transition"
 							onClick={() => setShowAll(true)}
 						>
-							+{hiddenCount} daha
+							+{hiddenCount} more
 						</button>
 					)}
 				</div>
@@ -113,7 +117,7 @@ const EpisodeDetail = () => {
 					to="/"
 					className="mt-8 inline-block px-6 py-2 rounded-lg bg-gradient-to-r from-rick to-morty dark:from-morty dark:to-rick text-white font-semibold shadow hover:bg-accent-light dark:hover:bg-accent-dark focus:outline-none focus:ring-2 focus:ring-accent-light dark:focus:ring-accent-dark transition text-base animate-fadeIn"
 				>
-					Ana Sayfaya Dön
+					Return to Home Page
 				</Link>
 			</div>
 		</div>
