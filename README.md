@@ -1,34 +1,34 @@
-# Rick & Morty Karakter ve Bölüm Rehberi
+# Rick & Morty Character & Episode Guide
 
-Modern, animasyonlu ve tematik bir Rick and Morty SPA uygulaması. Tüm karakterleri ve bölümleri filtreleyin, detaylarını keşfedin, temalar arasında geçiş yapın!
+A modern, animated, and themed Rick and Morty SPA. Browse and filter all characters and episodes, discover detailed information, and switch between light, dark, or auto themes!
 
 ---
 
-## Özellikler / Features
-- 🔍 Karakter ve bölüm arama & filtreleme
-- 🧑‍🚀 Karakter ve bölüm detay sayfaları (görsel, badge, link, animasyon)
-- 🌗 Tema seçimi (Açık/Koyu/Otomatik)
+## Features
+- 🔍 Character and episode search & filtering
+- 🧑‍🚀 Character and episode detail pages (images, badges, links, animation)
+- 🌗 Theme switcher (Light/Dark/Auto)
 - 🌀 Modern UI: Tailwind CSS, Shadcn UI, Radix UI
-- ⚡ Hızlı ve optimize: Vite + TypeScript
-- 🖼️ Responsive ve erişilebilir (a11y)
-- 🎨 Animasyonlar ve mikro etkileşimler
-- 🦾 SEO ve sosyal medya meta tag’leri
-- 🌐 Rick and Morty API ile canlı veri
+- ⚡ Fast and optimized: Vite + TypeScript
+- 🖼️ Responsive and accessible (a11y)
+- 🎨 Animations and micro-interactions
+- 🦾 SEO and social media meta tags
+- 🌐 Live data from the Rick and Morty API
 
 ---
 
-## Kurulum / Installation
+## Installation
 
 ```bash
 npm install
 npm run dev
 ```
 
-Uygulama varsayılan olarak [http://localhost:5173](http://localhost:5173) adresinde çalışır.
+The app runs by default at [http://localhost:5173](http://localhost:5173).
 
 ---
 
-## Kullanılan Teknolojiler / Tech Stack
+## Tech Stack
 - [Vite](https://vitejs.dev/) + [React](https://react.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
@@ -39,31 +39,15 @@ Uygulama varsayılan olarak [http://localhost:5173](http://localhost:5173) adres
 ---
 
 ## SEO & Meta
-- Dinamik `<title>`, `<meta name="description">`, Open Graph ve Twitter Card desteği
-- Favicon ve sosyal medya görselleri
+- Dynamic `<title>`, `<meta name="description">`, Open Graph and Twitter Card support
+- Favicon and social media images
 
 ---
 
-## Katkı / Contributing
-Pull request’ler ve öneriler memnuniyetle karşılanır!
+## Contributing
+Pull requests and suggestions are welcome!
 
 ---
 
-## Lisans / License
-MIT
-
----
-
-> **ENGLISH**
->
-> Modern, animated and themed Rick and Morty SPA. Browse and filter all characters and episodes, discover details, switch between themes!
->
-> - Character & episode search/filter
-> - Detail pages with images, badges, links, animation
-> - Theme switch (Light/Dark/Auto)
-> - Modern UI: Tailwind, Shadcn, Radix
-> - Fast & optimized: Vite + TypeScript
-> - Responsive & accessible (a11y)
-> - Animations & micro-interactions
-> - SEO & social meta tags
-> - Live data from Rick and Morty API 
+## License
+MIT 

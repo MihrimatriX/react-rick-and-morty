@@ -1,4 +1,4 @@
 export interface FilterData {
-  key: string;
-  value: string;
-} 
+	key: string;
+	value: string;
+}

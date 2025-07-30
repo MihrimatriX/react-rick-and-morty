@@ -5,9 +5,9 @@ import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { ThemeProvider } from "./ThemeContext";
 
 createRoot(document.getElementById("root")!).render(
-  <ThemeProvider>
-    <TooltipProvider>
-      <App />
-    </TooltipProvider>
-  </ThemeProvider>
+	<ThemeProvider>
+		<TooltipProvider>
+			<App />
+		</TooltipProvider>
+	</ThemeProvider>,
 );
