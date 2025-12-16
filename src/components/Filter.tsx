@@ -1,7 +1,6 @@
 import type { FilterData } from "../types/filter";
 import {
 	FaSearch,
-	FaFilter,
 	FaSyncAlt,
 	FaVenusMars,
 	FaHeartbeat,

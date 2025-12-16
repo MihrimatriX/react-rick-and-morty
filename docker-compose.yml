@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  react-rickmorty:
+  react-rickmorty-app:
     build:
       context: .
       dockerfile: Dockerfile
@@ -12,3 +12,9 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=production 
+    networks:
+      - proxy-network
+
+  network:
+    name: proxy-network
+    external: true

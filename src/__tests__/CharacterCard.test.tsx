@@ -1,9 +1,9 @@
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import CharacterCard from '../components/CharacterCard';
+import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import CharacterCard from "../components/CharacterCard";
 
-describe('CharacterCard', () => {
-	test('renders character name and image', () => {
+describe("CharacterCard", () => {
+	test("renders character name and image", () => {
 		render(
 			<MemoryRouter>
 				<CharacterCard
@@ -20,7 +20,7 @@ describe('CharacterCard', () => {
 		expect(img).toBeInTheDocument();
 	});
 
-	test('renders status and species badges', () => {
+	test("renders status and species badges", () => {
 		render(
 			<MemoryRouter>
 				<CharacterCard
@@ -32,12 +32,12 @@ describe('CharacterCard', () => {
 				/>
 			</MemoryRouter>
 		);
-		expect(screen.getByText('Dead')).toBeInTheDocument();
-		const alienBadges = screen.getAllByText('Alien');
+		expect(screen.getByText("Dead")).toBeInTheDocument();
+		const alienBadges = screen.getAllByText("Alien");
 		expect(alienBadges.length).toBeGreaterThan(0);
 	});
 
-	test('renders link with correct href', () => {
+	test("renders link with correct href", () => {
 		render(
 			<MemoryRouter>
 				<CharacterCard
@@ -49,11 +49,11 @@ describe('CharacterCard', () => {
 				/>
 			</MemoryRouter>
 		);
-		const link = screen.getByRole('link');
-		expect(link).toHaveAttribute('href', '/char/5');
+		const link = screen.getByRole("link");
+		expect(link).toHaveAttribute("href", "/char/5");
 	});
 
-	test('image alt text matches name', () => {
+	test("image alt text matches name", () => {
 		render(
 			<MemoryRouter>
 				<CharacterCard
@@ -65,27 +65,27 @@ describe('CharacterCard', () => {
 				/>
 			</MemoryRouter>
 		);
-		const img = screen.getByAltText('Beth Smith');
+		const img = screen.getByAltText("Beth Smith");
 		expect(img).toBeInTheDocument();
 	});
 
-	test('renders with missing img gracefully', () => {
+	test("renders with missing img gracefully", () => {
 		render(
 			<MemoryRouter>
 				<CharacterCard
 					id={10}
-					img={''}
+					img={""}
 					name="No Image"
 					species="Human"
 					status="Alive"
 				/>
 			</MemoryRouter>
 		);
-		const img = screen.getByAltText('No Image');
+		const img = screen.getByAltText("No Image");
 		expect(img).toBeInTheDocument();
 	});
 
-	test('renders with unknown status and species', () => {
+	test("renders with unknown status and species", () => {
 		render(
 			<MemoryRouter>
 				<CharacterCard
@@ -97,11 +97,11 @@ describe('CharacterCard', () => {
 				/>
 			</MemoryRouter>
 		);
-		const unknownBadges = screen.getAllByText('unknown');
+		const unknownBadges = screen.getAllByText("unknown");
 		expect(unknownBadges.length).toBeGreaterThan(0);
 	});
 
-	test('link has correct aria-label and tabIndex', () => {
+	test("link has correct aria-label and tabIndex", () => {
 		render(
 			<MemoryRouter>
 				<CharacterCard
@@ -113,31 +113,36 @@ describe('CharacterCard', () => {
 				/>
 			</MemoryRouter>
 		);
-		const link = screen.getByRole('link');
-		expect(link).toHaveAttribute('aria-label', expect.stringContaining('detayına git'));
-		expect(link).toHaveAttribute('tabIndex', '0');
+		const link = screen.getByRole("link");
+		expect(link).toHaveAttribute(
+			"aria-label",
+			expect.stringContaining("detayına git")
+		);
+		expect(link).toHaveAttribute("tabIndex", "0");
 	});
 
-	test('link triggers click on Enter/Space keydown', () => {
+	test("link triggers click on Enter/Space keydown", () => {
 		const handleClick = jest.fn();
 		render(
 			<MemoryRouter>
 				<a
-				href="#"
-				aria-label="test-link"
-				tabIndex={0}
-				onClick={handleClick}
-				onKeyDown={(e) => {
-					if (e.key === 'Enter' || e.key === ' ') handleClick();
-				}}
-			>
-				Test Link
-			</a>
+					href="#"
+					aria-label="test-link"
+					tabIndex={0}
+					onClick={handleClick}
+					onKeyDown={(e) => {
+						if (e.key === "Enter" || e.key === " ") handleClick();
+					}}
+				>
+					Test Link
+				</a>
 			</MemoryRouter>
 		);
-		const link = screen.getByLabelText('test-link');
+		const link = screen.getByLabelText("test-link");
 		link.focus();
-		link.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+		link.dispatchEvent(
+			new KeyboardEvent("keydown", { key: "Enter", bubbles: true })
+		);
 		expect(handleClick).toHaveBeenCalled();
 	});
 });

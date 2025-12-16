@@ -1,12 +1,12 @@
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import CharacterCard from '../components/CharacterCard';
-import Filter from '../components/Filter';
-import RouteError from '../components/RouteError';
-import { BrowserRouter } from 'react-router-dom';
+import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import CharacterCard from "../components/CharacterCard";
+import Filter from "../components/Filter";
+import RouteError from "../components/RouteError";
+import { BrowserRouter } from "react-router-dom";
 
-describe('Snapshot Tests', () => {
-	test('CharacterCard matches snapshot', () => {
+describe("Snapshot Tests", () => {
+	test("CharacterCard matches snapshot", () => {
 		const { container } = render(
 			<MemoryRouter>
 				<CharacterCard
@@ -21,14 +21,14 @@ describe('Snapshot Tests', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	test('Filter matches snapshot', () => {
+	test("Filter matches snapshot", () => {
 		const { container } = render(
 			<Filter handleFilter={jest.fn()} onResetFilters={jest.fn()} />
 		);
 		expect(container).toMatchSnapshot();
 	});
 
-	test('RouteError matches snapshot', () => {
+	test("RouteError matches snapshot", () => {
 		const { container } = render(
 			<BrowserRouter>
 				<RouteError />
@@ -36,4 +36,4 @@ describe('Snapshot Tests', () => {
 		);
 		expect(container).toMatchSnapshot();
 	});
-}); 
+});

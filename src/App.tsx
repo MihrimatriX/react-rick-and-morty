@@ -45,13 +45,13 @@ const App = () => {
 
 	const filteredChars = chars
 		.filter((char) =>
-			char.name.toUpperCase().includes(nameFilter.toUpperCase()),
+			char.name.toUpperCase().includes(nameFilter.toUpperCase())
 		)
 		.filter((char) =>
-			statusFilter === "all" ? true : char.status === statusFilter,
+			statusFilter === "all" ? true : char.status === statusFilter
 		)
 		.filter((char) =>
-			genderFilter === "all" ? true : char.gender === genderFilter,
+			genderFilter === "all" ? true : char.gender === genderFilter
 		)
 		.sort((a, b) => a.name.localeCompare(b.name));
 

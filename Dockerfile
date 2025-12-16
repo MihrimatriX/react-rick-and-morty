@@ -1,6 +1,6 @@
 # Multi-stage build için Dockerfile
 # Stage 1: Build stage
-FROM node:21-alpine AS builder
+FROM node:lts-trixie-slim AS builder
 
 # Çalışma dizinini ayarla
 WORKDIR /app

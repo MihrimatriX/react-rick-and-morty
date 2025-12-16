@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-body, html {
+body,
+html {
   @apply bg-bg-light text-slate-900 dark:bg-bg-dark dark:text-white transition-colors duration-300;
   margin: 0;
 }
@@ -59,6 +60,7 @@ html.dark * {
 
 /* Animasyonlar (mevcutlar korunuyor) */
 @keyframes wiggle {
+
   0%,
   100% {
     transform: rotate(-3deg);

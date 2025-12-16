@@ -16,7 +16,8 @@ const RouteError = () => (
 			You're Lost in Another Universe!
 		</h2>
 		<p className="mb-6 text-gray-600 dark:text-gray-300 max-w-md">
-			The page you're looking for doesn't exist in this universe. Use the portal to return to the home page!
+			The page you're looking for doesn't exist in this universe. Use the
+			portal to return to the home page!
 		</p>
 		<Link
 			to="/"

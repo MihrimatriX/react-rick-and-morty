@@ -1,5 +1,5 @@
-require('@testing-library/jest-dom');
-const { TextEncoder, TextDecoder } = require('util');
+require("@testing-library/jest-dom");
+const { TextEncoder, TextDecoder } = require("util");
 global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder;
-require('whatwg-fetch');
+require("whatwg-fetch");

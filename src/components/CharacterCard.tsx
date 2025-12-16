@@ -5,18 +5,6 @@ import { FaUser, FaGlobe } from "react-icons/fa";
 interface CharacterCardProps
 	extends Pick<Character, "id" | "img" | "name" | "species" | "status"> {}
 
-const statusColors: Record<string, string> = {
-	Alive: "bg-green-500",
-	Dead: "bg-red-500",
-	unknown: "bg-gray-400",
-};
-
-const speciesColors: Record<string, string> = {
-	Human: "bg-blue-500",
-	Alien: "bg-purple-500",
-	unknown: "bg-gray-400",
-};
-
 const CharacterCard = ({
 	id,
 	img,
@@ -41,12 +29,24 @@ const CharacterCard = ({
 					/>
 					<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-80" />
 					<span
-						className={`absolute top-2 left-2 px-2 py-1 text-xs rounded-full text-white font-bold shadow ${status === "Alive" ? "bg-rick" : status === "Dead" ? "bg-evil" : "bg-portal"}`}
+						className={`absolute top-2 left-2 px-2 py-1 text-xs rounded-full text-white font-bold shadow ${
+							status === "Alive"
+								? "bg-rick"
+								: status === "Dead"
+								? "bg-evil"
+								: "bg-portal"
+						}`}
 					>
 						{status}
 					</span>
 					<span
-						className={`absolute top-2 right-2 px-2 py-1 text-xs rounded-full text-white font-bold shadow ${species === "Human" ? "bg-morty" : species === "Alien" ? "bg-evil" : "bg-portal"}`}
+						className={`absolute top-2 right-2 px-2 py-1 text-xs rounded-full text-white font-bold shadow ${
+							species === "Human"
+								? "bg-morty"
+								: species === "Alien"
+								? "bg-evil"
+								: "bg-portal"
+						}`}
 					>
 						{species}
 					</span>

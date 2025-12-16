@@ -57,7 +57,7 @@ const EpisodeDetail = () => {
 					? ep.characters
 					: ep.characters.slice(0, MAX_VISIBLE);
 				const charData = await Promise.all(
-					charUrls.map(fetchCharacter),
+					charUrls.map(fetchCharacter)
 				);
 				setCharacters(charData);
 			})

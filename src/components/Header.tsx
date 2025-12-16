@@ -46,7 +46,11 @@ const Header = () => {
 								<DropdownMenu.Item
 									key={opt.value}
 									onSelect={() => setTheme(opt.value as any)}
-									className={`flex items-center gap-2 px-4 py-3 rounded cursor-pointer text-slate-800 dark:text-white hover:bg-rick/20 dark:hover:bg-morty/20 transition text-lg ${theme === opt.value ? "font-bold bg-rick/30 dark:bg-morty/30" : ""}`}
+									className={`flex items-center gap-2 px-4 py-3 rounded cursor-pointer text-slate-800 dark:text-white hover:bg-rick/20 dark:hover:bg-morty/20 transition text-lg ${
+										theme === opt.value
+											? "font-bold bg-rick/30 dark:bg-morty/30"
+											: ""
+									}`}
 									aria-label={opt.label}
 								>
 									{opt.icon} {opt.label}

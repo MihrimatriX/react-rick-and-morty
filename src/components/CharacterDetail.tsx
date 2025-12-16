@@ -20,23 +20,6 @@ import { Link } from "react-router-dom";
 import Breadcrumb from "./Breadcrumb";
 import LoadingSpinner from "./LoadingSpinner";
 
-const statusColors: Record<string, string> = {
-	Alive: "bg-green-500",
-	Dead: "bg-red-500",
-	unknown: "bg-gray-400",
-};
-const speciesColors: Record<string, string> = {
-	Human: "bg-blue-500",
-	Alien: "bg-purple-500",
-	unknown: "bg-gray-400",
-};
-const genderColors: Record<string, string> = {
-	Male: "bg-cyan-500",
-	Female: "bg-pink-500",
-	Genderless: "bg-yellow-500",
-	unknown: "bg-gray-400",
-};
-
 interface CharacterDetailProps {
 	char?: Character;
 }
@@ -52,8 +35,8 @@ const CharacterDetail = ({ char }: CharacterDetailProps) => {
 			getEpisodesFromAPI().then((allEpisodes) => {
 				const eps = allEpisodes.filter((ep) =>
 					char.episodeUrls.includes(
-						`https://rickandmortyapi.com/api/episode/${ep.id}`,
-					),
+						`https://rickandmortyapi.com/api/episode/${ep.id}`
+					)
 				);
 				setEpisodes(eps);
 				if (eps.length > 0) {
@@ -107,12 +90,24 @@ const CharacterDetail = ({ char }: CharacterDetailProps) => {
 							loading="lazy"
 						/>
 						<span
-							className={`absolute top-2 left-2 px-2 py-1 text-xs rounded-full text-white font-bold shadow ${char.status === "Alive" ? "bg-rick" : char.status === "Dead" ? "bg-evil" : "bg-portal"}`}
+							className={`absolute top-2 left-2 px-2 py-1 text-xs rounded-full text-white font-bold shadow ${
+								char.status === "Alive"
+									? "bg-rick"
+									: char.status === "Dead"
+									? "bg-evil"
+									: "bg-portal"
+							}`}
 						>
 							{char.status}
 						</span>
 						<span
-							className={`absolute top-2 right-2 px-2 py-1 text-xs rounded-full text-white font-bold shadow ${char.species === "Human" ? "bg-morty" : char.species === "Alien" ? "bg-evil" : "bg-portal"}`}
+							className={`absolute top-2 right-2 px-2 py-1 text-xs rounded-full text-white font-bold shadow ${
+								char.species === "Human"
+									? "bg-morty"
+									: char.species === "Alien"
+									? "bg-evil"
+									: "bg-portal"
+							}`}
 						>
 							{char.species}
 						</span>
@@ -122,7 +117,13 @@ const CharacterDetail = ({ char }: CharacterDetailProps) => {
 							<FaUser className="text-rick dark:text-morty" />
 							<span className="font-bold">Status:</span>{" "}
 							<span
-								className={`px-2 py-1 rounded ${char.status === "Alive" ? "bg-rick" : char.status === "Dead" ? "bg-evil" : "bg-portal"} text-white`}
+								className={`px-2 py-1 rounded ${
+									char.status === "Alive"
+										? "bg-rick"
+										: char.status === "Dead"
+										? "bg-evil"
+										: "bg-portal"
+								} text-white`}
 							>
 								{char.status}
 							</span>{" "}
@@ -132,7 +133,13 @@ const CharacterDetail = ({ char }: CharacterDetailProps) => {
 							<FaGlobe className="text-morty" />
 							<span className="font-bold">Species:</span>{" "}
 							<span
-								className={`px-2 py-1 rounded ${char.species === "Human" ? "bg-morty" : char.species === "Alien" ? "bg-evil" : "bg-portal"} text-white`}
+								className={`px-2 py-1 rounded ${
+									char.species === "Human"
+										? "bg-morty"
+										: char.species === "Alien"
+										? "bg-evil"
+										: "bg-portal"
+								} text-white`}
 							>
 								{char.species}
 							</span>
@@ -141,7 +148,13 @@ const CharacterDetail = ({ char }: CharacterDetailProps) => {
 							<FaVenusMars className="text-evil" />
 							<span className="font-bold">Gender:</span>{" "}
 							<span
-								className={`px-2 py-1 rounded ${char.gender === "Male" ? "bg-rick" : char.gender === "Female" ? "bg-evil" : "bg-portal"} text-white`}
+								className={`px-2 py-1 rounded ${
+									char.gender === "Male"
+										? "bg-rick"
+										: char.gender === "Female"
+										? "bg-evil"
+										: "bg-portal"
+								} text-white`}
 							>
 								{char.gender}
 							</span>
@@ -260,17 +273,35 @@ const CharacterDetail = ({ char }: CharacterDetailProps) => {
 					</div>
 					<div className="flex flex-wrap gap-2 my-4">
 						<span
-							className={`px-3 py-1 rounded-full text-white font-semibold text-sm ${char.status === "Alive" ? "bg-rick" : char.status === "Dead" ? "bg-evil" : "bg-portal"}`}
+							className={`px-3 py-1 rounded-full text-white font-semibold text-sm ${
+								char.status === "Alive"
+									? "bg-rick"
+									: char.status === "Dead"
+									? "bg-evil"
+									: "bg-portal"
+							}`}
 						>
 							{char.status}
 						</span>
 						<span
-							className={`px-3 py-1 rounded-full text-white font-semibold text-sm ${char.species === "Human" ? "bg-morty" : char.species === "Alien" ? "bg-evil" : "bg-portal"}`}
+							className={`px-3 py-1 rounded-full text-white font-semibold text-sm ${
+								char.species === "Human"
+									? "bg-morty"
+									: char.species === "Alien"
+									? "bg-evil"
+									: "bg-portal"
+							}`}
 						>
 							{char.species}
 						</span>
 						<span
-							className={`px-3 py-1 rounded-full text-white font-semibold text-sm ${char.gender === "Male" ? "bg-rick" : char.gender === "Female" ? "bg-evil" : "bg-portal"}`}
+							className={`px-3 py-1 rounded-full text-white font-semibold text-sm ${
+								char.gender === "Male"
+									? "bg-rick"
+									: char.gender === "Female"
+									? "bg-evil"
+									: "bg-portal"
+							}`}
 						>
 							{char.gender}
 						</span>
