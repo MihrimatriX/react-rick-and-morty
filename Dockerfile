@@ -20,6 +20,9 @@ RUN npm run build
 # Stage 2: Production stage
 FROM nginx:alpine AS production
 
+# SPA routing + Open Graph origin rewrite
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # Build edilmiş dosyaları nginx'in serve edeceği dizine kopyala
 COPY --from=builder /app/dist /usr/share/nginx/html
 

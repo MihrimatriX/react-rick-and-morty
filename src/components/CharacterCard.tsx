@@ -51,7 +51,7 @@ const CharacterCard = ({
 						{species}
 					</span>
 				</div>
-				<main className="flex-1 flex flex-col justify-end bg-white/80 dark:bg-bg-dark/80 p-4 rounded-b-2xl transition-colors duration-300 group-hover:bg-rick/20 dark:group-hover:bg-morty/20">
+				<div className="flex-1 flex flex-col justify-end bg-white/80 dark:bg-bg-dark/80 p-4 rounded-b-2xl transition-colors duration-300 group-hover:bg-rick/20 dark:group-hover:bg-morty/20">
 					<h3 className="font-bold text-lg mb-1 truncate flex items-center gap-2 text-slate-900 dark:text-white">
 						<FaUser className="text-rick" /> {name}
 					</h3>
@@ -59,7 +59,7 @@ const CharacterCard = ({
 						<FaGlobe className="text-morty" />
 						<span>{species}</span>
 					</div>
-				</main>
+				</div>
 			</div>
 		</Link>
 	);

@@ -1,0 +1,17 @@
+{
+	"name": "Rick & Morty Karakter ve Bölüm Rehberi",
+	"short_name": "Rick & Morty",
+	"description": "Rick and Morty karakterlerini ve bölümlerini modern arayüzle keşfet. Filtrele, detayları incele.",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#0f172a",
+	"theme_color": "#22d3ee",
+	"lang": "tr",
+	"icons": [
+		{
+			"src": "/header_logo.png",
+			"type": "image/png",
+			"purpose": "any"
+		}
+	]
+}

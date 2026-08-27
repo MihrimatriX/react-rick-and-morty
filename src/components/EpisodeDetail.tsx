@@ -4,6 +4,7 @@ import RouteError from "./RouteError";
 import Breadcrumb from "./Breadcrumb";
 import LoadingSpinner from "./LoadingSpinner";
 import BackToListLink from "./BackToListLink";
+import { absUrl, useSeo } from "../seo";
 
 interface CharacterRef {
 	id: string;
@@ -64,6 +65,35 @@ const EpisodeDetail = () => {
 			.catch(() => setError(true))
 			.finally(() => setLoading(false));
 	}, [id, showAll]);
+
+	const episodeDescription = episode
+		? `${episode.episode} ${episode.name} — ${episode.air_date}. Rick and Morty bölümündeki karakterleri keşfet.`
+		: "";
+	const episodeJsonLd = episode
+		? {
+			"@context": "https://schema.org",
+			"@type": "TVEpisode",
+			name: episode.name,
+			episodeNumber: episode.episode,
+			datePublished: episode.air_date,
+			url: absUrl(`/episodes/${episode.id}`),
+			partOfSeries: {
+				"@type": "TVSeries",
+				name: "Rick and Morty",
+			},
+		}
+		: undefined;
+
+	useSeo({
+		enabled: !!episode,
+		title: episode
+			? `${episode.episode} ${episode.name} | Rick & Morty`
+			: "",
+		description: episodeDescription,
+		path: episode ? `/episodes/${episode.id}` : "/",
+		type: "article",
+		jsonLd: episodeJsonLd,
+	});
 
 	if (loading) return <LoadingSpinner />;
 	if (error || !episode) return <RouteError />;
