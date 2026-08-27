@@ -18,6 +18,12 @@ import RouteError from "./components/RouteError";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { AnimatePresence, motion } from "framer-motion";
 import type { FC } from "react";
+import {
+	Seo,
+	SITE_NAME,
+	DEFAULT_DESCRIPTION,
+	websiteJsonLd,
+} from "./seo";
 
 const App = () => {
 	const [chars, setChars] = useState<Character[]>([]);
@@ -121,6 +127,13 @@ const RoutesWrapper: FC<RoutesWrapperProps> = ({
 						path="/"
 						element={
 							<>
+								<Seo
+									title={SITE_NAME}
+									description={DEFAULT_DESCRIPTION}
+									path="/"
+									jsonLd={websiteJsonLd()}
+								/>
+								<h1 className="sr-only">{SITE_NAME}</h1>
 								<Filter
 									handleFilter={handleFilter}
 									onResetFilters={renderUnfilteredList}

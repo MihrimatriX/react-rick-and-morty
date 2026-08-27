@@ -1,14 +1,12 @@
-version: '3.8'
-
 services:
-  react-rickmorty-app:
+  react-rickmorty:
     build:
       context: .
       dockerfile: Dockerfile
       target: production
     ports:
       - "2525:80"
-    container_name: react-rickmorty-app
+    container_name: afu-react-rickmorty
     restart: unless-stopped
     environment:
       - NODE_ENV=production 

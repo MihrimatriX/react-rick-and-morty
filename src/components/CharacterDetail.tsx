@@ -19,6 +19,7 @@ import getEpisodesFromAPI, {
 import { Link } from "react-router-dom";
 import Breadcrumb from "./Breadcrumb";
 import LoadingSpinner from "./LoadingSpinner";
+import { absUrl, useSeo } from "../seo";
 
 interface CharacterDetailProps {
 	char?: Character;
@@ -46,6 +47,33 @@ const CharacterDetail = ({ char }: CharacterDetailProps) => {
 			});
 		}
 	}, [char]);
+
+	const charDescription = char
+		? `${char.name}: ${char.status} ${char.species}, ${char.gender}. Origin: ${char.origin}. Location: ${char.location}.`
+		: "";
+	const charJsonLd = char
+		? {
+			"@context": "https://schema.org",
+			"@type": "Person",
+			name: char.name,
+			image: char.img,
+			url: absUrl(`/character/${char.id}`),
+			description: charDescription,
+			gender: char.gender,
+			homeLocation: char.location,
+		}
+		: undefined;
+
+	useSeo({
+		enabled: !!char,
+		title: char ? `${char.name} | Rick & Morty` : "",
+		description: charDescription,
+		path: char ? `/character/${char.id}` : "/",
+		image: char?.img,
+		imageAlt: char?.name,
+		type: "profile",
+		jsonLd: charJsonLd,
+	});
 
 	if (!char) {
 		return (
@@ -258,10 +286,10 @@ const CharacterDetail = ({ char }: CharacterDetailProps) => {
 				/>
 				<div className="ml-8 p-0 text-left max-md:ml-0 max-md:text-center w-full">
 					<div className="flex items-center justify-between max-md:flex-col max-md:gap-4">
-						<h3 className="mt-0 text-3xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+						<h1 className="mt-0 text-3xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
 							<FaUser className="text-rick dark:text-morty text-2xl" />
 							{char.name}
-						</h3>
+						</h1>
 						<Dialog.Trigger asChild>
 							<Button
 								type="button"
