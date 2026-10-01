@@ -1,177 +1,182 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/space-grotesk";
 
-body,
-html {
-  @apply bg-bg-light text-slate-900 dark:bg-bg-dark dark:text-white transition-colors duration-300;
-  margin: 0;
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Semantic tokens; values switch with the theme below. */
+@theme inline {
+	--font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+	--font-display: "Space Grotesk Variable", "Inter Variable", ui-sans-serif, sans-serif;
+
+	--color-bg: var(--bg);
+	--color-surface: var(--surface);
+	--color-surface-2: var(--surface-2);
+	--color-line: var(--line);
+	--color-fg: var(--fg);
+	--color-muted: var(--muted);
+	--color-portal: var(--portal);
+	--color-portal-ink: var(--portal-ink);
+	--color-rick: var(--rick);
+	--color-rick-ink: var(--rick-ink);
+	--color-morty: var(--morty);
+	--color-morty-ink: var(--morty-ink);
+	--color-danger: var(--danger);
+	--color-on-portal: var(--on-portal);
+
+	--animate-portal-spin: portal-spin 14s linear infinite;
+	--animate-float: float 6s ease-in-out infinite;
+	--animate-shimmer: shimmer 1.6s ease-in-out infinite;
 }
 
-/* Scrollbar - Modern ve Temaya Duyarlı */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-  background: transparent;
+:root {
+	--bg: #f5f7f1;
+	--surface: #ffffff;
+	--surface-2: #edf1e7;
+	--line: #dbe3d3;
+	--fg: #0e1a12;
+	--muted: #59685d;
+	--portal: #8ccf3f;
+	--portal-ink: #3b7a0f;
+	--rick: #19b6cf;
+	--rick-ink: #0a7286;
+	--morty: #f3d548;
+	--morty-ink: #8a6a00;
+	--danger: #e0435a;
+	--on-portal: #0b1606;
+	color-scheme: light;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #22d3ee;
-  /* tailwind cyan-400 */
-  border-radius: 8px;
-  transition: background 0.2s;
+.dark {
+	--bg: #060a0f;
+	--surface: #0d141c;
+	--surface-2: #131c26;
+	--line: #1e2a36;
+	--fg: #e7efe9;
+	--muted: #8b9ba6;
+	--portal: #97ce4c;
+	--portal-ink: #a9e263;
+	--rick: #2bc8e0;
+	--rick-ink: #6fdcee;
+	--morty: #f2d94e;
+	--morty-ink: #f5e27d;
+	--danger: #ff6b7f;
+	--on-portal: #0b1606;
+	color-scheme: dark;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #0e7490;
-  /* tailwind cyan-700 */
+@layer base {
+	html {
+		-webkit-tap-highlight-color: transparent;
+		scrollbar-gutter: stable;
+	}
+
+	body {
+		@apply min-h-dvh bg-bg font-sans text-fg antialiased;
+		font-feature-settings: "cv11", "ss01";
+		background-image:
+			radial-gradient(
+				60rem 30rem at 85% -10%,
+				color-mix(in oklab, var(--portal) 18%, transparent),
+				transparent 70%
+			),
+			radial-gradient(
+				50rem 26rem at -10% 10%,
+				color-mix(in oklab, var(--rick) 14%, transparent),
+				transparent 70%
+			);
+		background-attachment: fixed;
+	}
+
+	h1,
+	h2,
+	h3 {
+		@apply font-display tracking-tight;
+	}
+
+	::selection {
+		background: color-mix(in oklab, var(--portal) 45%, transparent);
+	}
+
+	:focus-visible {
+		@apply outline-2 outline-offset-2 outline-portal;
+	}
+
+	* {
+		scrollbar-width: thin;
+		scrollbar-color: color-mix(in oklab, var(--muted) 45%, transparent) transparent;
+	}
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
+@layer components {
+	/* Faint dotted grid used behind hero sections. */
+	.bg-grid {
+		background-image: radial-gradient(
+			color-mix(in oklab, var(--fg) 12%, transparent) 1px,
+			transparent 1px
+		);
+		background-size: 22px 22px;
+		mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+	}
+
+	.text-gradient {
+		@apply bg-clip-text text-transparent;
+		background-image: linear-gradient(
+			100deg,
+			var(--portal-ink) 10%,
+			var(--rick-ink) 55%,
+			var(--morty-ink) 95%
+		);
+	}
+
+	.skeleton {
+		@apply relative overflow-hidden bg-surface-2;
+	}
+
+	.skeleton::after {
+		content: "";
+		@apply absolute inset-0 animate-shimmer;
+		background: linear-gradient(
+			90deg,
+			transparent,
+			color-mix(in oklab, var(--fg) 7%, transparent),
+			transparent
+		);
+	}
 }
 
-html.dark ::-webkit-scrollbar-thumb {
-  background: #0e7490;
+@keyframes portal-spin {
+	to {
+		transform: rotate(360deg);
+	}
 }
 
-html.dark ::-webkit-scrollbar-thumb:hover {
-  background: #22d3ee;
+@keyframes float {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
 }
 
-/* Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #22d3ee transparent;
+@keyframes shimmer {
+	from {
+		transform: translateX(-100%);
+	}
+	to {
+		transform: translateX(100%);
+	}
 }
 
-html.dark * {
-  scrollbar-color: #0e7490 transparent;
-}
-
-/* Ek Gölge Efektleri */
-.shadow-3xl {
-  box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
-}
-
-.hover\:shadow-3xl:hover {
-  box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
-}
-
-/* Animasyonlar (mevcutlar korunuyor) */
-@keyframes wiggle {
-
-  0%,
-  100% {
-    transform: rotate(-3deg);
-  }
-
-  50% {
-    transform: rotate(3deg);
-  }
-}
-
-.animate-wiggle {
-  animation: wiggle 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.3s ease-in;
-}
-
-@keyframes slideDownAndFade {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-slideDownAndFade {
-  animation: slideDownAndFade 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-slideUp {
-  animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.animate-scaleIn {
-  animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin-slow {
-  animation: spin-slow 2s linear infinite;
-}
-
-/* Hover Animasyonları */
-.hover-lift {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-}
-
-/* Glassmorphism Efekti */
-.glassmorphism {
-  background: rgba(255, 255, 255, 0.1);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.dark .glassmorphism {
-  background: rgba(0, 0, 0, 0.1);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
 }

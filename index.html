@@ -1,46 +1,95 @@
 <!doctype html>
 <html lang="tr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rick &amp; Morty Karakter ve Bölüm Rehberi</title>
-  <meta name="description" content="Rick and Morty karakterlerini ve bölümlerini modern arayüzle keşfet. Filtrele, detayları incele, tematik ve animasyonlu deneyim!" />
-  <meta name="robots" content="index, follow" />
-  <meta name="author" content="Rick &amp; Morty Karakter Rehberi" />
-  <meta name="color-scheme" content="light dark" />
-  <meta name="theme-color" content="#22d3ee" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
-  <meta name="application-name" content="Rick &amp; Morty" />
-  <meta name="apple-mobile-web-app-title" content="Rick &amp; Morty" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <link rel="canonical" href="__SITE_ORIGIN__/" />
-  <link rel="icon" type="image/png" href="/header_logo.png" />
-  <link rel="shortcut icon" type="image/png" href="/header_logo.png" />
-  <link rel="apple-touch-icon" href="/header_logo.png" />
-  <link rel="manifest" href="/site.webmanifest" />
-  <link rel="preconnect" href="https://rickandmortyapi.com" crossorigin />
-  <link rel="dns-prefetch" href="https://rickandmortyapi.com" />
-  <meta property="og:site_name" content="Rick &amp; Morty Karakter ve Bölüm Rehberi" />
-  <meta property="og:locale" content="tr_TR" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Rick &amp; Morty Karakter ve Bölüm Rehberi" />
-  <meta property="og:description" content="Rick and Morty evrenindeki tüm karakter ve bölümleri modern, animasyonlu ve tematik bir arayüzle keşfet!" />
-  <meta property="og:url" content="__SITE_ORIGIN__/" />
-  <meta property="og:image" content="__SITE_ORIGIN__/header_logo.png" />
-  <meta property="og:image:alt" content="Rick and Morty logo" />
-  <meta property="og:image:type" content="image/png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Rick &amp; Morty Karakter ve Bölüm Rehberi" />
-  <meta name="twitter:description" content="Rick and Morty evrenindeki tüm karakter ve bölümleri modern, animasyonlu ve tematik bir arayüzle keşfet!" />
-  <meta name="twitter:image" content="__SITE_ORIGIN__/header_logo.png" />
-  <meta name="twitter:image:alt" content="Rick and Morty logo" />
-  <script id="seo-jsonld" type="application/ld+json">
-    {"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"Rick & Morty Karakter ve Bölüm Rehberi","url":"__SITE_ORIGIN__/","description":"Rick and Morty karakterlerini ve bölümlerini modern arayüzle keşfet. Filtrele, detayları incele, tematik ve animasyonlu deneyim!","inLanguage":"tr"},{"@type":"WebApplication","name":"Rick & Morty Karakter ve Bölüm Rehberi","url":"__SITE_ORIGIN__/","applicationCategory":"EntertainmentApplication","operatingSystem":"Any"}]}
-  </script>
-</head>
-<body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.tsx"></script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Rick &amp; Morty Karakter ve Bölüm Rehberi</title>
+		<meta
+			name="description"
+			content="Rick and Morty karakterlerini ve bölümlerini modern arayüzle keşfet. Filtrele, detayları incele, tematik ve animasyonlu deneyim!"
+		/>
+		<meta name="robots" content="index, follow" />
+		<meta name="author" content="Rick &amp; Morty Karakter Rehberi" />
+		<meta name="color-scheme" content="light dark" />
+		<meta
+			name="theme-color"
+			content="#f5f7f1"
+			media="(prefers-color-scheme: light)"
+		/>
+		<meta name="theme-color" content="#060a0f" media="(prefers-color-scheme: dark)" />
+		<meta name="application-name" content="Rick &amp; Morty" />
+		<meta name="apple-mobile-web-app-title" content="Rick &amp; Morty" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<link rel="canonical" href="__SITE_ORIGIN__/" />
+		<link rel="icon" type="image/png" href="/icon-192.png" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<link rel="manifest" href="/site.webmanifest" />
+		<link rel="preconnect" href="https://rickandmortyapi.com" crossorigin />
+		<script>
+			// Apply the saved theme before first paint to avoid a flash.
+			(function () {
+				try {
+					var t = localStorage.getItem("theme");
+					var dark =
+						t === "dark" ||
+						(t !== "light" &&
+							matchMedia("(prefers-color-scheme: dark)").matches);
+					document.documentElement.classList.toggle("dark", dark);
+					document.documentElement.style.colorScheme = dark ? "dark" : "light";
+				} catch (e) {}
+			})();
+		</script>
+		<link rel="dns-prefetch" href="https://rickandmortyapi.com" />
+		<meta
+			property="og:site_name"
+			content="Rick &amp; Morty Karakter ve Bölüm Rehberi"
+		/>
+		<meta property="og:locale" content="tr_TR" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="Rick &amp; Morty Karakter ve Bölüm Rehberi" />
+		<meta
+			property="og:description"
+			content="Rick and Morty evrenindeki tüm karakter ve bölümleri modern, animasyonlu ve tematik bir arayüzle keşfet!"
+		/>
+		<meta property="og:url" content="__SITE_ORIGIN__/" />
+		<meta property="og:image" content="__SITE_ORIGIN__/og-image.png" />
+		<meta property="og:image:alt" content="Rick and Morty logo" />
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Rick &amp; Morty Karakter ve Bölüm Rehberi" />
+		<meta
+			name="twitter:description"
+			content="Rick and Morty evrenindeki tüm karakter ve bölümleri modern, animasyonlu ve tematik bir arayüzle keşfet!"
+		/>
+		<meta name="twitter:image" content="__SITE_ORIGIN__/og-image.png" />
+		<meta name="twitter:image:alt" content="Rick and Morty logo" />
+		<script id="seo-jsonld" type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@graph": [
+					{
+						"@type": "WebSite",
+						"name": "Rick & Morty Karakter ve Bölüm Rehberi",
+						"url": "__SITE_ORIGIN__/",
+						"description": "Rick and Morty karakterlerini ve bölümlerini modern arayüzle keşfet. Filtrele, detayları incele, tematik ve animasyonlu deneyim!",
+						"inLanguage": "tr"
+					},
+					{
+						"@type": "WebApplication",
+						"name": "Rick & Morty Karakter ve Bölüm Rehberi",
+						"url": "__SITE_ORIGIN__/",
+						"applicationCategory": "EntertainmentApplication",
+						"operatingSystem": "Any"
+					}
+				]
+			}
+		</script>
+	</head>
+	<body>
+		<div id="root"></div>
+		<script type="module" src="/src/main.tsx"></script>
+	</body>
 </html>

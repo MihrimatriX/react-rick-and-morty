@@ -1,91 +1,133 @@
-import { Link } from "react-router-dom";
-import { useTheme } from "../ThemeContext";
-import { FaSun, FaMoon, FaAdjust, FaBars } from "react-icons/fa";
-import headerLogo from "../assets/header_logo.png";
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import * as Dialog from "@radix-ui/react-dialog";
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
+import { Link, NavLink } from "react-router";
+import logo from "../assets/logo.webp";
+import { useFavorites } from "../hooks/useFavorites";
+import { cn } from "../lib/cn";
+import { NAV_ITEMS, type NavItem } from "./navigation";
+import ThemeMenu from "./ThemeMenu";
+import { buttonClasses } from "./ui/button-classes";
 
-const themeOptions = [
-	{ value: "light", label: "Light", icon: <FaSun /> },
-	{ value: "dark", label: "Dark", icon: <FaMoon /> },
-	{ value: "auto", label: "Auto", icon: <FaAdjust /> },
-];
+function NavCount({ count }: { count: number }) {
+	if (count === 0) return null;
+	return (
+		<span className="ml-0.5 rounded-full bg-portal px-1.5 py-px text-[0.68rem] leading-4 font-bold text-on-portal tabular-nums">
+			{count}
+		</span>
+	);
+}
 
-const Header = () => {
-	const { theme, setTheme } = useTheme();
+function NavLinkItem({
+	item,
+	count,
+	onNavigate,
+	large = false,
+}: {
+	item: NavItem;
+	count: number;
+	onNavigate?: () => void;
+	large?: boolean;
+}) {
+	const Icon = item.icon;
+	return (
+		<NavLink
+			to={item.to}
+			end={item.end}
+			onClick={onNavigate}
+			className={({ isActive }) =>
+				cn(
+					"flex items-center gap-2 rounded-xl font-medium transition-colors",
+					large ? "px-4 py-3 text-base" : "px-3 py-2 text-sm",
+					isActive
+						? "bg-portal/15 text-portal-ink"
+						: "text-muted hover:bg-surface-2 hover:text-fg",
+				)
+			}
+		>
+			<Icon className={large ? "size-5" : "size-4"} aria-hidden="true" />
+			{item.label}
+			{item.to === "/favorites" && <NavCount count={count} />}
+		</NavLink>
+	);
+}
+
+export default function Header() {
+	const [open, setOpen] = useState(false);
+	const { ids } = useFavorites();
 
 	return (
-		<header className="sticky top-0 z-50 w-full bg-bg-light dark:bg-bg-dark backdrop-blur-md shadow-lg border-b border-accent-light dark:border-accent-dark transition-colors duration-300">
-			<div className="max-w-7xl mx-auto flex items-center justify-between px-8 py-5 min-h-[88px] gap-8">
+		<header className="sticky top-0 z-40 border-b border-line/70 bg-bg/75 backdrop-blur-xl">
+			<div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">
 				<Link
 					to="/"
-					className="flex items-center gap-4 group"
-					tabIndex={0}
-					aria-label="Home page"
+					aria-label="Ana sayfa"
+					className="group flex items-center gap-3"
 				>
 					<img
-						src={headerLogo}
-						alt="Rick and Morty Logo"
-						className="h-16 w-auto drop-shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:animate-wiggle"
+						src={logo}
+						alt="Rick and Morty"
+						width={400}
+						height={130}
+						className="h-9 w-auto drop-shadow-[0_2px_10px_rgba(151,206,76,0.35)] transition-transform duration-300 group-hover:-rotate-2 group-hover:scale-105"
 						draggable={false}
 					/>
 				</Link>
-				<div className="flex items-center gap-6">
-					{/* Theme Selector */}
-					<DropdownMenu.Root>
-						<DropdownMenu.Trigger asChild>
-							<button
-								className="flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-accent-light to-evil-dark dark:from-accent-dark dark:to-evil-dark text-white font-semibold text-lg shadow hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-rick transition-all"
-								aria-label="Select theme"
-							>
-								<FaAdjust className="text-2xl" />
-								<span className="hidden md:inline">Theme</span>
-							</button>
-						</DropdownMenu.Trigger>
-						<DropdownMenu.Content className="bg-card-light dark:bg-card-dark rounded-lg shadow-lg p-2 mt-2 min-w-[180px] animate-slideDownAndFade transition-colors duration-300">
-							{themeOptions.map((opt) => (
-								<DropdownMenu.Item
-									key={opt.value}
-									onSelect={() => setTheme(opt.value as any)}
-									className={`flex items-center gap-2 px-4 py-3 rounded cursor-pointer text-slate-800 dark:text-white hover:bg-rick/20 dark:hover:bg-morty/20 transition text-lg ${
-										theme === opt.value
-											? "font-bold bg-rick/30 dark:bg-morty/30"
-											: ""
-									}`}
-									aria-label={opt.label}
+
+				<nav
+					aria-label="Ana menü"
+					className="ml-4 hidden items-center gap-1 md:flex"
+				>
+					{NAV_ITEMS.map((item) => (
+						<NavLinkItem key={item.to} item={item} count={ids.length} />
+					))}
+				</nav>
+
+				<div className="ml-auto flex items-center gap-1">
+					<ThemeMenu />
+					<Dialog.Root open={open} onOpenChange={setOpen}>
+						<Dialog.Trigger
+							className={cn(buttonClasses("ghost", "icon"), "md:hidden")}
+							aria-label="Menüyü aç"
+						>
+							<Menu className="size-5" aria-hidden="true" />
+						</Dialog.Trigger>
+						<Dialog.Portal>
+							<Dialog.Overlay className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm" />
+							<Dialog.Content className="fixed inset-y-0 right-0 z-50 flex w-[min(20rem,85vw)] flex-col gap-6 border-l border-line bg-surface p-5 shadow-2xl">
+								<div className="flex items-center justify-between">
+									<Dialog.Title className="font-display text-lg font-semibold">
+										Menü
+									</Dialog.Title>
+									<Dialog.Close
+										className={buttonClasses("ghost", "icon")}
+										aria-label="Menüyü kapat"
+									>
+										<X className="size-5" aria-hidden="true" />
+									</Dialog.Close>
+								</div>
+								<Dialog.Description className="sr-only">
+									Sayfalar arasında gezin
+								</Dialog.Description>
+								<nav
+									aria-label="Mobil menü"
+									className="flex flex-col gap-1"
 								>
-									{opt.icon} {opt.label}
-								</DropdownMenu.Item>
-							))}
-						</DropdownMenu.Content>
-					</DropdownMenu.Root>
-					{/* Menu (placeholder) */}
-					<DropdownMenu.Root>
-						<DropdownMenu.Trigger asChild>
-							<button
-								className="flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-evil-dark to-accent-light dark:from-evil-dark dark:to-accent-dark text-white font-semibold text-lg shadow hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-morty transition-all"
-								aria-label="Menu"
-							>
-								<FaBars className="text-2xl" />
-								<span className="hidden md:inline">Menu</span>
-							</button>
-						</DropdownMenu.Trigger>
-						<DropdownMenu.Content className="bg-card-light dark:bg-card-dark rounded-lg shadow-lg p-2 mt-2 min-w-[180px] animate-slideDownAndFade transition-colors duration-300">
-							<DropdownMenu.Item asChild>
-								<a
-									href="https://rickandmortyapi.com/"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="block px-4 py-3 rounded hover:bg-rick/20 dark:hover:bg-morty/20 transition text-slate-800 dark:text-white text-lg"
-								>
-									API Source
-								</a>
-							</DropdownMenu.Item>
-						</DropdownMenu.Content>
-					</DropdownMenu.Root>
+									{NAV_ITEMS.map((item) => (
+										<NavLinkItem
+											key={item.to}
+											item={item}
+											count={ids.length}
+											onNavigate={() => setOpen(false)}
+											large
+										/>
+									))}
+								</nav>
+							</Dialog.Content>
+						</Dialog.Portal>
+					</Dialog.Root>
 				</div>
 			</div>
 		</header>
 	);
-};
-
-export default Header;
+}

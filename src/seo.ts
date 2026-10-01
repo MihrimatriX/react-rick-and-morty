@@ -3,7 +3,7 @@ import { useEffect } from "react";
 export const SITE_NAME = "Rick & Morty Karakter ve Bölüm Rehberi";
 export const DEFAULT_DESCRIPTION =
 	"Rick and Morty karakterlerini ve bölümlerini modern arayüzle keşfet. Filtrele, detayları incele, tematik ve animasyonlu deneyim!";
-export const DEFAULT_IMAGE = "/header_logo.png";
+export const DEFAULT_IMAGE = "/og-image.png";
 export const DEFAULT_IMAGE_ALT = "Rick and Morty logo";
 
 export function getSiteUrl(): string {
@@ -20,14 +20,8 @@ export function absUrl(path = "/"): string {
 	return origin ? `${origin}${normalized}` : normalized;
 }
 
-function upsertMeta(
-	attr: "name" | "property",
-	key: string,
-	content: string
-) {
-	let el = document.head.querySelector<HTMLMetaElement>(
-		`meta[${attr}="${key}"]`
-	);
+function upsertMeta(attr: "name" | "property", key: string, content: string) {
+	let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${key}"]`);
 	if (!el) {
 		el = document.createElement("meta");
 		el.setAttribute(attr, key);
@@ -37,9 +31,7 @@ function upsertMeta(
 }
 
 function upsertLink(rel: string, href: string) {
-	let el = document.head.querySelector<HTMLLinkElement>(
-		`link[rel="${rel}"]`
-	);
+	let el = document.head.querySelector<HTMLLinkElement>(`link[rel="${rel}"]`);
 	if (!el) {
 		el = document.createElement("link");
 		el.rel = rel;
@@ -93,11 +85,7 @@ export function useSeo({
 
 		document.title = title;
 		upsertMeta("name", "description", description);
-		upsertMeta(
-			"name",
-			"robots",
-			noindex ? "noindex, nofollow" : "index, follow"
-		);
+		upsertMeta("name", "robots", noindex ? "noindex, nofollow" : "index, follow");
 		upsertMeta("name", "twitter:card", "summary_large_image");
 		upsertMeta("name", "twitter:title", title);
 		upsertMeta("name", "twitter:description", description);
@@ -112,17 +100,7 @@ export function useSeo({
 		upsertLink("canonical", url);
 
 		if (jsonLdStr) upsertJsonLd(JSON.parse(jsonLdStr));
-	}, [
-		title,
-		description,
-		path,
-		image,
-		imageAlt,
-		type,
-		noindex,
-		jsonLdStr,
-		enabled,
-	]);
+	}, [title, description, path, image, imageAlt, type, noindex, jsonLdStr, enabled]);
 }
 
 export function Seo(props: SeoInput) {

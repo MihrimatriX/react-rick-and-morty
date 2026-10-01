@@ -1,17 +1,24 @@
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { ButtonHTMLAttributes } from "react";
+import { cn } from "../../lib/cn";
+import { buttonClasses, type Size, type Variant } from "./button-classes";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-	children: ReactNode;
-	className?: string;
+	variant?: Variant;
+	size?: Size;
 }
 
-export function Button({ children, className = "", ...props }: ButtonProps) {
+export function Button({
+	variant = "secondary",
+	size = "md",
+	className,
+	type = "button",
+	...props
+}: ButtonProps) {
 	return (
 		<button
-			className={`px-4 py-2 rounded bg-cyan-600 text-white font-semibold shadow hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition ${className}`}
+			type={type}
+			className={cn(buttonClasses(variant, size), className)}
 			{...props}
-		>
-			{children}
-		</button>
+		/>
 	);
 }
