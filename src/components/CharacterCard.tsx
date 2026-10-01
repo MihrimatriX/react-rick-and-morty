@@ -1,68 +1,82 @@
-import type { Character } from "../types/character";
-import { Link } from "react-router-dom";
-import { FaUser, FaGlobe } from "react-icons/fa";
+import { MapPin } from "lucide-react";
+import { Link } from "react-router";
+import type { Character } from "../lib/api";
+import { cn } from "../lib/cn";
+import { genderLabel, orUnknown, speciesLabel } from "../lib/labels";
+import FavoriteButton from "./FavoriteButton";
+import StatusBadge from "./StatusBadge";
 
-interface CharacterCardProps
-	extends Pick<Character, "id" | "img" | "name" | "species" | "status"> {}
+interface CharacterCardProps {
+	character: Character;
+	className?: string;
+}
 
-const CharacterCard = ({
-	id,
-	img,
-	name,
-	species,
-	status,
-}: CharacterCardProps) => {
+export default function CharacterCard({ character, className }: CharacterCardProps) {
+	const { id, name, image, status, species, gender, location } = character;
+
 	return (
-		<Link
-			to={`/char/${id}`}
-			tabIndex={0}
-			aria-label={`${name} detayına git`}
-			className="block focus:outline-none focus:ring-2 focus:ring-cyan-400"
+		<article
+			className={cn(
+				"group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-portal/60 hover:shadow-[0_18px_40px_-18px_var(--portal)]",
+				className,
+			)}
 		>
-			<div className="w-64 flex flex-col text-left m-2 p-0 rounded-2xl bg-card-light dark:bg-card-dark shadow-xl border-2 border-transparent hover:border-accent-light dark:hover:border-accent-dark transition-all duration-300 hover:scale-105 hover:shadow-2xl backdrop-blur-md group cursor-pointer overflow-hidden relative">
-				<div className="relative w-full aspect-square overflow-hidden">
-					<img
-						src={img}
-						alt={name}
-						className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:blur-[1px] rounded-t-2xl"
-						loading="lazy"
-					/>
-					<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-80" />
-					<span
-						className={`absolute top-2 left-2 px-2 py-1 text-xs rounded-full text-white font-bold shadow ${
-							status === "Alive"
-								? "bg-rick"
-								: status === "Dead"
-								? "bg-evil"
-								: "bg-portal"
-						}`}
-					>
-						{status}
-					</span>
-					<span
-						className={`absolute top-2 right-2 px-2 py-1 text-xs rounded-full text-white font-bold shadow ${
-							species === "Human"
-								? "bg-morty"
-								: species === "Alien"
-								? "bg-evil"
-								: "bg-portal"
-						}`}
-					>
-						{species}
-					</span>
-				</div>
-				<div className="flex-1 flex flex-col justify-end bg-white/80 dark:bg-bg-dark/80 p-4 rounded-b-2xl transition-colors duration-300 group-hover:bg-rick/20 dark:group-hover:bg-morty/20">
-					<h3 className="font-bold text-lg mb-1 truncate flex items-center gap-2 text-slate-900 dark:text-white">
-						<FaUser className="text-rick" /> {name}
-					</h3>
-					<div className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
-						<FaGlobe className="text-morty" />
-						<span>{species}</span>
-					</div>
-				</div>
+			<div className="relative aspect-square overflow-hidden bg-surface-2">
+				<img
+					src={image}
+					alt={name}
+					width={300}
+					height={300}
+					loading="lazy"
+					decoding="async"
+					className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+				/>
+				<div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-black/45 to-transparent" />
+				<StatusBadge status={status} className="absolute top-3 left-3" />
 			</div>
-		</Link>
-	);
-};
 
-export default CharacterCard;
+			<div className="flex flex-1 flex-col gap-1.5 p-4">
+				<h3 className="truncate text-lg leading-tight font-semibold">
+					<Link
+						to={`/character/${id}`}
+						className="outline-none after:absolute after:inset-0 after:content-[''] focus-visible:after:rounded-2xl focus-visible:after:outline-2 focus-visible:after:outline-portal"
+					>
+						{name}
+					</Link>
+				</h3>
+				<p className="text-sm text-muted">
+					{speciesLabel(species)} · {genderLabel(gender)}
+				</p>
+				<p className="mt-auto flex items-center gap-1.5 pt-2 text-xs text-muted">
+					<MapPin
+						className="size-3.5 shrink-0 text-rick-ink"
+						aria-hidden="true"
+					/>
+					<span className="truncate">{orUnknown(location.name)}</span>
+				</p>
+			</div>
+
+			<FavoriteButton
+				id={id}
+				name={name}
+				className="absolute top-2.5 right-2.5 z-10 size-9 rounded-full border border-white/15 bg-black/45 text-white backdrop-blur-md hover:bg-black/65"
+			/>
+		</article>
+	);
+}
+
+export function CharacterCardSkeleton() {
+	return (
+		<div
+			className="overflow-hidden rounded-2xl border border-line bg-surface"
+			aria-hidden="true"
+		>
+			<div className="skeleton aspect-square" />
+			<div className="space-y-2.5 p-4">
+				<div className="skeleton h-5 w-3/4 rounded-md" />
+				<div className="skeleton h-4 w-1/2 rounded-md" />
+				<div className="skeleton mt-4 h-3 w-2/3 rounded-md" />
+			</div>
+		</div>
+	);
+}
