@@ -1,0 +1,18 @@
+services:
+  react-rickmorty:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    ports:
+      - "2525:80"
+    container_name: afu-react-rickmorty
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production 
+    networks:
+      - proxy-network
+
+networks:
+  proxy-network:
+    external: true

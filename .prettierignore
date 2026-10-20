@@ -1,0 +1,7 @@
+dist
+coverage
+package-lock.json
+*.png
+docs
+*.yml
+*.yaml

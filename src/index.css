@@ -1,0 +1,182 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/space-grotesk";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Semantic tokens; values switch with the theme below. */
+@theme inline {
+	--font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+	--font-display: "Space Grotesk Variable", "Inter Variable", ui-sans-serif, sans-serif;
+
+	--color-bg: var(--bg);
+	--color-surface: var(--surface);
+	--color-surface-2: var(--surface-2);
+	--color-line: var(--line);
+	--color-fg: var(--fg);
+	--color-muted: var(--muted);
+	--color-portal: var(--portal);
+	--color-portal-ink: var(--portal-ink);
+	--color-rick: var(--rick);
+	--color-rick-ink: var(--rick-ink);
+	--color-morty: var(--morty);
+	--color-morty-ink: var(--morty-ink);
+	--color-danger: var(--danger);
+	--color-on-portal: var(--on-portal);
+
+	--animate-portal-spin: portal-spin 14s linear infinite;
+	--animate-float: float 6s ease-in-out infinite;
+	--animate-shimmer: shimmer 1.6s ease-in-out infinite;
+}
+
+:root {
+	--bg: #f5f7f1;
+	--surface: #ffffff;
+	--surface-2: #edf1e7;
+	--line: #dbe3d3;
+	--fg: #0e1a12;
+	--muted: #59685d;
+	--portal: #8ccf3f;
+	--portal-ink: #3b7a0f;
+	--rick: #19b6cf;
+	--rick-ink: #0a7286;
+	--morty: #f3d548;
+	--morty-ink: #8a6a00;
+	--danger: #e0435a;
+	--on-portal: #0b1606;
+	color-scheme: light;
+}
+
+.dark {
+	--bg: #060a0f;
+	--surface: #0d141c;
+	--surface-2: #131c26;
+	--line: #1e2a36;
+	--fg: #e7efe9;
+	--muted: #8b9ba6;
+	--portal: #97ce4c;
+	--portal-ink: #a9e263;
+	--rick: #2bc8e0;
+	--rick-ink: #6fdcee;
+	--morty: #f2d94e;
+	--morty-ink: #f5e27d;
+	--danger: #ff6b7f;
+	--on-portal: #0b1606;
+	color-scheme: dark;
+}
+
+@layer base {
+	html {
+		-webkit-tap-highlight-color: transparent;
+		scrollbar-gutter: stable;
+	}
+
+	body {
+		@apply min-h-dvh bg-bg font-sans text-fg antialiased;
+		font-feature-settings: "cv11", "ss01";
+		background-image:
+			radial-gradient(
+				60rem 30rem at 85% -10%,
+				color-mix(in oklab, var(--portal) 18%, transparent),
+				transparent 70%
+			),
+			radial-gradient(
+				50rem 26rem at -10% 10%,
+				color-mix(in oklab, var(--rick) 14%, transparent),
+				transparent 70%
+			);
+		background-attachment: fixed;
+	}
+
+	h1,
+	h2,
+	h3 {
+		@apply font-display tracking-tight;
+	}
+
+	::selection {
+		background: color-mix(in oklab, var(--portal) 45%, transparent);
+	}
+
+	:focus-visible {
+		@apply outline-2 outline-offset-2 outline-portal;
+	}
+
+	* {
+		scrollbar-width: thin;
+		scrollbar-color: color-mix(in oklab, var(--muted) 45%, transparent) transparent;
+	}
+}
+
+@layer components {
+	/* Faint dotted grid used behind hero sections. */
+	.bg-grid {
+		background-image: radial-gradient(
+			color-mix(in oklab, var(--fg) 12%, transparent) 1px,
+			transparent 1px
+		);
+		background-size: 22px 22px;
+		mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+	}
+
+	.text-gradient {
+		@apply bg-clip-text text-transparent;
+		background-image: linear-gradient(
+			100deg,
+			var(--portal-ink) 10%,
+			var(--rick-ink) 55%,
+			var(--morty-ink) 95%
+		);
+	}
+
+	.skeleton {
+		@apply relative overflow-hidden bg-surface-2;
+	}
+
+	.skeleton::after {
+		content: "";
+		@apply absolute inset-0 animate-shimmer;
+		background: linear-gradient(
+			90deg,
+			transparent,
+			color-mix(in oklab, var(--fg) 7%, transparent),
+			transparent
+		);
+	}
+}
+
+@keyframes portal-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes float {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+}
+
+@keyframes shimmer {
+	from {
+		transform: translateX(-100%);
+	}
+	to {
+		transform: translateX(100%);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
